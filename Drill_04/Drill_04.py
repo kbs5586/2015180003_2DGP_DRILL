@@ -2,7 +2,7 @@ from pico2d import *
 open_canvas()
 ch = load_image('animation_sheet.png')
 gr = load_image('grass.png')
-
+test
 x = 0
 frameX = 0
 frameY = 100
