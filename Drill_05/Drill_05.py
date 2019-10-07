@@ -8,14 +8,12 @@ def handle_events():
     global x, y
     global handX, handy
     global ClickX, ClickY
-    global IsStop
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN and SDL_BUTTON_LEFT:
             ClickX, ClickY = event.x, KPU_HEIGHT - 1 - event.y
-            IsStop=True
             MovePlayer((x, y), (ClickX, ClickY))
         elif event.type == SDL_MOUSEMOTION:
             handX, handy = event.x, KPU_HEIGHT - 1 - event.y
