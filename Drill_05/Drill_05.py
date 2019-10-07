@@ -35,7 +35,7 @@ Move = False
 frame = 0
 
 hide_cursor()
-
+FrameY=100;
 while running:
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
@@ -52,9 +52,10 @@ while running:
             y = (1 - t) * y1 + t * y2
 
             if x2 > x1:
-                character.clip_draw(frame * 100, 100, 100, 100, x, y)
+                FrameY=100
             elif x2 < x1:
-                character.clip_draw(frame * 100, 0, 100, 100, x, y)
+                FrameY=0
+                character.clip_draw(frame * 100, FrameY, 100, 100, x, y)
             update_canvas()
             frame = (frame + 1) % 8
             delay(0.05)
