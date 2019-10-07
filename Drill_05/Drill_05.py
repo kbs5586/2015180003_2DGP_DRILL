@@ -7,13 +7,14 @@ def handle_events():
     global running
     global x, y
     global handX, handy
+    global ClickX, ClickY
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN and SDL_BUTTON_LEFT:
-            MovePlayer((x, y), (handX, handy))
-            # x, y = event.x, KPU_HEIGHT - 1 - event.y
+            ClickX, ClickY = event.x, KPU_HEIGHT - 1 - event.y
+            MovePlayer((x, y), (ClickX, ClickY))
         elif event.type == SDL_MOUSEMOTION:
             handX, handy = event.x, KPU_HEIGHT - 1 - event.y
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
@@ -22,10 +23,30 @@ def handle_events():
 
 def MovePlayer(p1, p2):
     global x, y
-    for i in range(0, 100 + 1, 100):
-        t = i / 100
-        x = (1 - t) * p1[0] + t * p2[0]
-        y = (1 - t) * p1[1] + t * p2[1]
+    global ClickY, ClickY
+    global Count
+    Count = 0
+    while True:
+        Count += 10
+        t = Count / 100
+        x1 = ((1 - t) * p1[0] + t * p2[0])*0.01
+        y1 = ((1 - t) * p1[1] + t * p2[1])*0.01
+        x += x1
+        y += y1
+        if Count>=100:
+            return
+        if ClickX>x:
+            if ClickY>y:
+                pass
+            elif ClickY<y:
+                pass
+        elif ClickX<x:
+            if ClickY > y:
+                pass
+            elif ClickY < y:
+                pass
+        elif x != ClickX and y != ClickY:
+            Count -= 10
 
 
 open_canvas(KPU_WIDTH, KPU_HEIGHT)
@@ -35,8 +56,8 @@ hand = load_image('hand_arrow.png');
 
 handX, handy = KPU_WIDTH // 2, KPU_HEIGHT // 2
 
-PreX, PreY = 0, 0
-
+ClickX, ClickY = 0, 0
+Count = 0
 running = True
 x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 frame = 0
