@@ -8,12 +8,14 @@ def handle_events():
     global x, y
     global handX, handy
     global ClickX, ClickY
+    global IsStop
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN and SDL_BUTTON_LEFT:
             ClickX, ClickY = event.x, KPU_HEIGHT - 1 - event.y
+            IsStop=True
             MovePlayer((x, y), (ClickX, ClickY))
         elif event.type == SDL_MOUSEMOTION:
             handX, handy = event.x, KPU_HEIGHT - 1 - event.y
@@ -24,29 +26,29 @@ def handle_events():
 def MovePlayer(p1, p2):
     global x, y
     global ClickY, ClickY
-    global Count
-    Count = 0
-    while True:
-        Count += 10
-        t = Count / 100
-        x1 = ((1 - t) * p1[0] + t * p2[0])*0.01
-        y1 = ((1 - t) * p1[1] + t * p2[1])*0.01
-        x += x1
-        y += y1
-        if Count>=100:
-            return
-        if ClickX>x:
-            if ClickY>y:
-                pass
-            elif ClickY<y:
-                pass
-        elif ClickX<x:
+    global ResultX, ResultY
+    global IsStop
+    for i in range(0, 10000 + 1, 2):
+        t = i / 10000
+        x1 = ((1 - t) * p1[0] + t * p2[0]) * 0.001
+        y1 = ((1 - t) * p1[1] + t * p2[1]) * 0.001
+        if ClickX > x:
             if ClickY > y:
-                pass
+                x += x1
+                y += y1
             elif ClickY < y:
-                pass
-        elif x != ClickX and y != ClickY:
-            Count -= 10
+                x += x1
+                y -= y1
+        elif ClickX < x:
+            if ClickY > y:
+                x -= x1
+                y += y1
+            elif ClickY < y:
+                x -= x1
+                y -= y1
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+    ResultX = x
+    ResultY = y
 
 
 open_canvas(KPU_WIDTH, KPU_HEIGHT)
@@ -55,7 +57,9 @@ character = load_image('animation_sheet.png')
 hand = load_image('hand_arrow.png');
 
 handX, handy = KPU_WIDTH // 2, KPU_HEIGHT // 2
+ResultX, ResultY = KPU_WIDTH // 2, KPU_HEIGHT // 2
 
+IsStop=False
 ClickX, ClickY = 0, 0
 Count = 0
 running = True
@@ -66,7 +70,7 @@ hide_cursor()
 while running:
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
-    character.clip_draw(frame * 100, 100, 100, 100, x, y)
+    character.clip_draw(frame * 100, 100, 100, 100, ResultX, ResultY)
     hand.draw(handX + 22, handy - 20);
     update_canvas()
     frame = (frame + 1) % 8
