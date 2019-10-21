@@ -6,12 +6,16 @@ from pico2d import *
 
 import game_framework
 import title_state
+import pause_state
 
 name = "MainState"
 
 boy = None
 grass = None
 font = None
+iX = 0
+iY = 0
+Dir = 0
 
 
 class Grass:
@@ -23,11 +27,15 @@ class Grass:
 
 
 class Boy:
-    def __init__(self):
-        self.x, self.y = 0, 90
+    def __init__(self, i, iX, iY, iDir):
+        if i == 0:
+            self.x, self.y = 0, 90
+            self.dir = 1
+        elif i != 0:
+            self.x, self.y = iX, iY
+            self.dir = iDir
         self.frame = 0
         self.image = load_image('run_animation.png')
-        self.dir = 1
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -43,17 +51,30 @@ class Boy:
 
 def enter():
     global boy, grass
-    boy=Boy()
-    grass=Grass()
+    global iX
+    global iY
+    global Dir
+    if pause_state.CheckNum == 1:
+        boy = Boy(pause_state.CheckNum, iX, iY, Dir)
+    elif pause_state.CheckNum == 0:
+        boy = Boy(pause_state.CheckNum, iX, iY, Dir)
+        grass = Grass()
+
 
 def exit():
     global boy, grass
-    del(boy)
-    del(grass)
-
+    del boy
+    del grass
 
 
 def pause():
+    global boy
+    global iX
+    global iY
+    global Dir
+    iX = boy.x
+    iY = boy.y
+    Dir = boy.dir
     pass
 
 
@@ -62,13 +83,12 @@ def resume():
 
 
 def handle_events():
-    events=get_events()
+    events = get_events()
     for event in events:
-        if event.type==SDL_QUIT:
+        if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type==SDL_KEYDOWN and event.key==SDLK_ESCAPE:
-            game_framework.change_state(title_state)
-    pass
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            game_framework.push_state(pause_state)
 
 
 def update():
