@@ -87,7 +87,7 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_state(pause_state)
 
 
@@ -100,3 +100,7 @@ def draw():
     grass.draw()
     boy.draw()
     update_canvas()
+
+def Stop_Draw():
+    grass.draw()
+    boy.draw()

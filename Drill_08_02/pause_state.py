@@ -5,7 +5,9 @@ import main_state
 name = "PauseState"
 image = None
 logo_time = 0.0
-CheckNum=0
+CheckNum = 0
+iCnt = 10
+time=0
 
 def enter():
     global image
@@ -34,9 +36,9 @@ def handle_events():
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
                 game_framework.push_state(main_state)
-                CheckNum=1
+                CheckNum = 1
 
 
 def update():
@@ -44,6 +46,13 @@ def update():
 
 
 def draw():
+    global time
     clear_canvas()
-    image.draw(400, 300)
+    if time == 0:
+        image.draw(400, 300, 100, 100)
+    main_state.Stop_Draw()
+    update_canvas()
+    time = (time + 1) % 2
+    delay(0.5)
+
     update_canvas()
