@@ -245,8 +245,6 @@ def enter():
     Player = CPlayer()
     Player_Lst.append(Player)
 
-    MidBoss = CBossMonster(0)
-    MidBoss_Lst.append(MidBoss)
     pass
 
 
@@ -282,7 +280,7 @@ def update():
     global MidBoss
     global MonsterBullet_Lst
 
-    if Monster_time > 1.0:
+    if Monster_time > 2.0:
         Monster_lineLst = []
         for i in range(6):
             Monster_lineLst.append(random.randint(1, 7))
@@ -294,8 +292,10 @@ def update():
 
     Monster_time += 0.01
     Total_time += 0.01
-    if Total_time >= 10:
-        Total_time = 0
+    if Total_time >= 6:
+        MidBoss = CBossMonster(0)
+        MidBoss_Lst.append(MidBoss)
+        Total_time=-60
 
     for j in Bullet_Lst:
         if j.Collision(Monster_Lst):
