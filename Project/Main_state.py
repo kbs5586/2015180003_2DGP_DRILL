@@ -14,7 +14,6 @@ Back_Ground_Img = None
 
 State_Lst = []
 Player_Lst = []
-Normal_Monster_Lst = []
 
 Normal_Monster_Time = 0.0
 
@@ -22,15 +21,13 @@ Normal_Monster_Time = 0.0
 def Create_Normal_Monster():
     global State_Lst
     global Normal_Monster_Time
-    global Normal_Monster_Lst
-
-    if Normal_Monster_Time > 2.0:
+    Normal_Monster_Lst = []
+    if Normal_Monster_Time > 5.0:
         for i in range(6):
             Monster = Main_State.Normal_Monster0.CNormal_Monster0(int(random.randint(1, 7)))
             Normal_Monster_Lst.append(Monster)
         State_Lst.append(Normal_Monster_Lst)
         Normal_Monster_Time = 0.0
-    delay(0.01)
     Normal_Monster_Time += 0.01
 
 
@@ -99,14 +96,15 @@ def draw():
 
 
 def Delete():
-    global Normal_Monster_Lst
     global Player_Lst
     global State_Lst
 
-    for i in Normal_Monster_Lst:
-        if i.y <= 0:
-            del Normal_Monster_Lst[Normal_Monster_Lst.index(i)]
-
-    for i in Player_Lst[0].Bullet_Lst:
-        if i.y >= 600:
-            del Player_Lst[0].Bullet_Lst[Player_Lst[0].Bullet_Lst.index(i)]
+    for i in State_Lst:
+        for j in i:
+            if j.Type == "Monster":
+                if j.y <= 0:
+                    del i[i.index(j)]
+            if j.Type == "Player":
+                for k in j.Bullet_Lst:
+                    if k.y >= 600:
+                        del j.Bullet_Lst[j.Bullet_Lst.index(k)]
