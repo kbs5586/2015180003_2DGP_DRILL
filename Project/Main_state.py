@@ -79,6 +79,7 @@ def update():
             j.Update()
 
     Delete()
+    Collision()
     pass
 
 
@@ -108,3 +109,23 @@ def Delete():
                 for k in j.Bullet_Lst:
                     if k.y >= 600:
                         del j.Bullet_Lst[j.Bullet_Lst.index(k)]
+
+
+def Collision():
+    global State_Lst
+
+    for i in State_Lst:
+        for j in i:
+            if j.Type == "Player":
+                #for k in State_Lst:
+                    #for l in k:
+                        #if l.Type == "Item":
+                            #j.Collision(k)
+                for k in j.Bullet_Lst:
+                    for l in State_Lst:
+                        for h in l:
+                            if h.Type == "Monster":
+                                k.Collision(l)
+        pass
+
+    pass

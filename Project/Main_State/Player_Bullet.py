@@ -58,4 +58,13 @@ class CPlayer_Bullet:
         pass
 
     def Collision(self, Unit_Lst):
+        for i in Unit_Lst:
+            if self.x - CPlayer_Bullet.ImgX/2 < i.x + i.ImgX / 2 \
+                    and self.y + CPlayer_Bullet.ImgY/2 > i.y - i.ImgY / 2 \
+                    and self.x + CPlayer_Bullet.ImgX/2 > i.x - i.ImgX / 2 \
+                    and self.y - CPlayer_Bullet.ImgY/2 < i.y + i.ImgY / 2:
+                i.Hp -= CPlayer_Bullet.Att
+                if i.Hp <= 0:
+                    del Unit_Lst[Unit_Lst.index(i)]
+
         pass

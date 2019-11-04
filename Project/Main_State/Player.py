@@ -45,3 +45,6 @@ class CPlayer:
         for i in self.Bullet_Lst:
             i.Render()
         pass
+
+    def Collision(self, Unit_Lst):
+        pass
