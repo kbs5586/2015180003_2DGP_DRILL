@@ -27,6 +27,7 @@ MidBossBullet_Lst = []
 Monster_Lst = []
 MidBoss_Lst = []
 Player_Lst = []
+Item_Lst = []
 
 
 class CPlayer:
@@ -36,11 +37,11 @@ class CPlayer:
         self.ImgX, self.ImgY = 115, 110
         self.Hp = 1
         if Select_state.CharNum == 1:
-            self.image = load_image('Player0.png')
+            self.image = load_image('Resource//Player0.png')
         elif Select_state.CharNum == 2:
-            self.image = load_image('Player1.png')
+            self.image = load_image('Resource//Player1.png')
         elif Select_state.CharNum == 3:
-            self.image = load_image('Player2.png')
+            self.image = load_image('Resource//Player2.png')
 
     def Update(self):
         global x, y
@@ -67,7 +68,7 @@ class CMiBossBullet:
         self.ImgX, self.ImgY = 45, 45
         self.Cnt = Cnt
         if CMiBossBullet.image is None:
-            CMiBossBullet.image = load_image('BossBullet0.png')
+            CMiBossBullet.image = load_image('Resource//BossBullet0.png')
 
     def Update(self):
         if self.Cnt % 4 == 1:
@@ -105,10 +106,10 @@ class CBullet:
             if Select_state.CharNum == 1:
                 if Player.Bullet_Stack == 0:
                     if CBullet.image is None:
-                        CBullet.image = load_image('Bullet_Ch0_0.png')
+                        CBullet.image = load_image('Resource//Bullet_Ch0_0.png')
                 elif Player.Bullet_Stack == 1:
                     if CBullet.image is None:
-                        CBullet.image = load_image('Bullet_Ch0_1.png')
+                        CBullet.image = load_image('Resource//Bullet_Ch0_1.png')
 
     def Update(self):
         self.y += 30
@@ -124,6 +125,9 @@ class CBullet:
                     and self.y - 34 < i.y + i.ImgY / 2:
                 i.Hp -= 1
                 if i.Hp <= 0:
+                    rand = random.randint(0, 10)
+                    if rand % 5 == 0:
+                        i.Drop()
                     del Unit[Unit.index(i)]
                 return True
 
@@ -135,7 +139,7 @@ class CMonster_Bullet:
         self.x, self.y = x, y - 10
         self.ImgX, self.ImgY = 25, 25
         if CMonster_Bullet.image is None:
-            CMonster_Bullet.image = load_image('Circle0.png')
+            CMonster_Bullet.image = load_image('Resource//Circle0.png')
         pass
 
     def Update(self):
@@ -166,7 +170,7 @@ class CItem:
         self.x = xPos
         self.y = 600
         if CItem.image is None:
-            CItem.image = load_image('Item0.png')
+            CItem.image = load_image('Resource//Item0.png')
 
     def Update(self):
         self.y -= 6
@@ -184,7 +188,7 @@ class CBossMonster:
         self.Hp = 100
         self.BulletCnt = 0
         if BossNum == 0:
-            self.image = load_image('Boss0.png')
+            self.image = load_image('Resource//Boss0.png')
         elif BossNum == 1:
             pass
 
@@ -204,6 +208,11 @@ class CBossMonster:
             MidBoss_BulletTime = 0.0
         MidBoss_BulletTime += 0.01
 
+    def Drop(self):
+        item = CItem()
+        Item_Lst.append(item)
+        pass
+
     def Draw(self):
         self.image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
 
@@ -211,10 +220,10 @@ class CBossMonster:
 class CMonster:
     global MonsterBullet_Lst
 
-    def __init__(self, xPos=400):
+    def __init__(self, xPos=1):
         self.x = xPos * 100
         self.y = 600
-        self.image = load_image('Monster0.png')
+        self.image = load_image('Resource//Monster0.png')
         self.ImgX = 116
         self.ImgY = 120
         self.Hp = 1
@@ -229,6 +238,11 @@ class CMonster:
 
             Monster_BulletTime = 0.0
         Monster_BulletTime += 0.01
+        pass
+
+    def Drop(self):
+        item = CItem()
+        Item_Lst.append(item)
 
         pass
 
@@ -241,7 +255,7 @@ def enter():
     global Back_Ground_Img
     global Player_Lst
     global MidBoss_Lst
-    Back_Ground_Img = load_image('BackGround.png')
+    Back_Ground_Img = load_image('Resource//BackGround.png')
     Player = CPlayer()
     Player_Lst.append(Player)
 
@@ -295,8 +309,9 @@ def update():
     if Total_time >= 6:
         MidBoss = CBossMonster(0)
         MidBoss_Lst.append(MidBoss)
-        Total_time=-60
+        Total_time = -60
 
+    # 몬스터 충돌
     for j in Bullet_Lst:
         if j.Collision(Monster_Lst):
             del Bullet_Lst[Bullet_Lst.index(j)]
@@ -304,6 +319,7 @@ def update():
         if i.Collision(MidBoss_Lst):
             del Bullet_Lst[Bullet_Lst.index(i)]
 
+    # 플레이어 충돌
     # for i in MonsterBullet_Lst:
     # i.Collision(Player_Lst)
 
@@ -346,6 +362,10 @@ def draw():
         i.Draw()
 
     for i in MidBossBullet_Lst:
+        i.Update()
+        i.Draw()
+
+    for i in Item_Lst:
         i.Update()
         i.Draw()
     update_canvas()

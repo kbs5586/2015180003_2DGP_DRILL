@@ -16,7 +16,7 @@ CharNum = 0
 class Cursor:
     def __init__(self):
         self.x, self.y = 400, 300
-        self.image = load_image('Cursor.png')
+        self.image = load_image('Resource//Cursor.png')
 
     def Update(self):
         global x, y
@@ -29,7 +29,7 @@ class Cursor:
 class PosterChar0:
     def __init__(self):
         self.x, self.y = 133, 300
-        self.image = load_image('Char0.png')
+        self.image = load_image('Resource//Char0.png')
 
     def Draw(self):
         self.image.draw(self.x, self.y)
@@ -38,7 +38,7 @@ class PosterChar0:
 class PosterChar1:
     def __init__(self):
         self.x, self.y = 400, 300
-        self.image = load_image('Char1.png')
+        self.image = load_image('Resource//Char1.png')
 
     def Draw(self):
         self.image.draw(self.x, self.y)
@@ -47,7 +47,7 @@ class PosterChar1:
 class PosterChar2:
     def __init__(self):
         self.x, self.y = 666, 300
-        self.image = load_image('Char2.png')
+        self.image = load_image('Resource//Char2.png')
 
     def Draw(self):
         self.image.draw(self.x, self.y)
@@ -63,7 +63,7 @@ def enter():
     PostCh2 = PosterChar2()
 
     Cur = Cursor()
-    image = load_image('Logo0.png')
+    image = load_image('Resource//Logo0.png')
 
 
 def exit():
