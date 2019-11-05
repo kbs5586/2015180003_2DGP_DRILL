@@ -1,4 +1,7 @@
 import game_framework
+import Main_State.Item
+import random
+
 from pico2d import *
 
 
@@ -30,5 +33,15 @@ class CNormal_Monster0:
         CNormal_Monster0.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
         pass
 
-    def Drop(self):
-        pass
+    def Drop(self, Unit_Lst):
+        Item_Lst = []
+
+        tmp = random.randint(0, 2)
+        print(tmp)
+        if tmp == 0:
+            Item = Main_State.Item.CItem(0)
+        else:
+            Item = Main_State.Item.CItem(1)
+        Item_Lst.append(Item)
+        Unit_Lst.append(Item_Lst)
+
