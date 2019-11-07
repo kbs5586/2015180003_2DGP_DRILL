@@ -2,6 +2,7 @@ import game_framework
 from pico2d import *
 import Main_State.Player
 import Main_state
+import random
 
 
 class CPlayer_Bullet:
@@ -60,13 +61,14 @@ class CPlayer_Bullet:
 
     def Collision(self, Unit_Lst):
         for i in Unit_Lst:
-            if self.x - CPlayer_Bullet.ImgX/2 < i.x + i.ImgX / 2 \
-                    and self.y + CPlayer_Bullet.ImgY/2 > i.y - i.ImgY / 2 \
-                    and self.x + CPlayer_Bullet.ImgX/2 > i.x - i.ImgX / 2 \
-                    and self.y - CPlayer_Bullet.ImgY/2 < i.y + i.ImgY / 2:
+            if self.x - CPlayer_Bullet.ImgX / 2 < i.x + i.ImgX / 2 \
+                    and self.y + CPlayer_Bullet.ImgY / 2 > i.y - i.ImgY / 2 \
+                    and self.x + CPlayer_Bullet.ImgX / 2 > i.x - i.ImgX / 2 \
+                    and self.y - CPlayer_Bullet.ImgY / 2 < i.y + i.ImgY / 2:
                 i.Hp -= CPlayer_Bullet.Att
                 if i.Hp <= 0:
-                    i.Drop(Main_state.State_Lst)
+                    j = random.randint(0, 10)
+                    if j <= 1:
+                        i.Drop(Main_state.State_Lst)
                     del Unit_Lst[Unit_Lst.index(i)]
-
         pass

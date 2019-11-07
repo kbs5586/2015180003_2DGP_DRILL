@@ -39,9 +39,9 @@ class CNormal_Monster0:
         tmp = random.randint(0, 2)
         print(tmp)
         if tmp == 0:
-            Item = Main_State.Item.CItem(0)
+            Item = Main_State.Item.CItem(0, self.x, self.y)
         else:
-            Item = Main_State.Item.CItem(1)
+            Item = Main_State.Item.CItem(1, self.x, self.y)
         Item_Lst.append(Item)
         Unit_Lst.append(Item_Lst)
 
