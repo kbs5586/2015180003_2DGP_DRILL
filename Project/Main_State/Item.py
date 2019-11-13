@@ -30,7 +30,7 @@ class CItem:
             self.DirY = 1
         self.Speed = 1
         self.Type = "Item"
-        self.LifeTime=5.0
+        self.LifeTime = 5.0
 
     def Update(self):
         if self.x <= 0:
@@ -53,6 +53,7 @@ class CItem:
 
         if self.LifeTime > 1.0:
             # 삭제코드
+
             logo_time = 0
         self.LifeTime -= 0.01
         pass

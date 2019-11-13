@@ -15,7 +15,8 @@ class CPlayer:
         self.ImgX, self.ImgY = 155, 110
         self.Hp = 100
         self.MouseX, self.MouseY = 0, 0
-        self.Bullet_Stack = 0
+        self.Bullet_Stack_Num = 0
+        self.Bullet_Stack_Shape = 0
         self.Bullet_Time = 0.0
         self.Bullet_Lst = []
         self.Type = "Player"
@@ -31,8 +32,14 @@ class CPlayer:
         self.y = self.MouseY
 
         if self.Bullet_Time > 1:
-            Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x, self.y, self.Player_Num)
-            self.Bullet_Lst.append(Bullet)
+            if self.Bullet_Stack_Num >= 0:
+                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x-10, self.y, self.Player_Num)
+                self.Bullet_Lst.append(Bullet)
+                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x+10, self.y, self.Player_Num)
+                self.Bullet_Lst.append(Bullet)
+            else:
+                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x, self.y, self.Player_Num)
+                self.Bullet_Lst.append(Bullet)
             self.Bullet_Time = 0
         self.Bullet_Time += 0.01
 
@@ -47,4 +54,16 @@ class CPlayer:
         pass
 
     def Collision(self, Unit_Lst):
+        for i in Unit_Lst:
+            if self.x - self.ImgX / 2 < i.x + i.ImgX / 2 \
+                    and self.y + self.ImgY / 2 > i.y - i.ImgY / 2 \
+                    and self.x + self.ImgX / 2 > i.x - i.ImgX / 2 \
+                    and self.y - self.ImgY / 2 < i.y + i.ImgY / 2:
+                if i.kind == 0:
+                    self.Bullet_Stack_Num += 1
+                    pass
+                elif i.kind == 1:
+                    self.Bullet_Stack_Shape += 1
+                    pass
+                pass
         pass
