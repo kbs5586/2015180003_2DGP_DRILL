@@ -17,9 +17,12 @@ class CPlayer:
         self.MouseX, self.MouseY = 0, 0
         self.Bullet_Stack_Num = 0
         self.Bullet_Stack_Shape = 0
+        self.Bullet_Stack_Speed = 0
         self.Bullet_Time = 0.0
         self.Bullet_Lst = []
         self.Type = "Player"
+        self.BulletSpeed = 1.0
+        self.IsCheck_Bullet_Stack_Shape = False
         pass
 
     def Mouse_Move(self, x, y):
@@ -30,12 +33,13 @@ class CPlayer:
     def Update(self):
         self.x = self.MouseX
         self.y = self.MouseY
-
-        if self.Bullet_Time > 1:
-            if self.Bullet_Stack_Num >= 0:
-                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x-10, self.y, self.Player_Num)
+        if self.BulletSpeed <= 0.2:
+            self.BulletSpeed = 0.2
+        if self.Bullet_Time > self.BulletSpeed:
+            if self.Bullet_Stack_Num >= 10:
+                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x - 10, self.y, self.Player_Num)
                 self.Bullet_Lst.append(Bullet)
-                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x+10, self.y, self.Player_Num)
+                Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x + 10, self.y, self.Player_Num)
                 self.Bullet_Lst.append(Bullet)
             else:
                 Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x, self.y, self.Player_Num)
@@ -45,6 +49,10 @@ class CPlayer:
 
         for i in self.Bullet_Lst:
             i.Update()
+            if not self.IsCheck_Bullet_Stack_Shape:
+                if self.Bullet_Stack_Shape >= 3:
+                    i.Change_Bullet(self.Player_Num)
+                    self.IsCheck_Bullet_Stack_Shape = True
         pass
 
     def Render(self):
@@ -65,5 +73,11 @@ class CPlayer:
                 elif i.kind == 1:
                     self.Bullet_Stack_Shape += 1
                     pass
+                elif i.kind == 2:
+                    self.Bullet_Stack_Speed += 1
+                    if self.Bullet_Stack_Speed >= 2:
+                        self.Bullet_Stack_Speed = 0
+                        self.BulletSpeed -= 0.1
+                del Unit_Lst[Unit_Lst.index(i)]
                 pass
         pass

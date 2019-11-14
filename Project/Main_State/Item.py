@@ -18,6 +18,11 @@ class CItem:
                 self.Image = load_image('Resource//Item1.png')
                 self.ImgX = 130
                 self.ImgY = 80
+        elif self.kind == 2:
+            if self.Image is None:
+                self.Image = load_image('Resource//Item2.png')
+                self.ImgX = 80
+                self.ImgY = 80
         self.x, self.y = PosX, PosY
         self.DirX, self.DirY = random.randint(0, 1), random.randint(0, 1)
         if self.DirX == 0:
@@ -31,6 +36,7 @@ class CItem:
         self.Speed = 1
         self.Type = "Item"
         self.LifeTime = 5.0
+
 
     def Update(self):
         if self.x <= 0:

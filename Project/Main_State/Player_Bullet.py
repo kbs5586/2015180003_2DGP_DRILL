@@ -33,23 +33,22 @@ class CPlayer_Bullet:
 
         pass
 
-    def Chang_Bullet(self, Player_Bullet_Stack, Player_Num):
-        if Player_Bullet_Stack >= 3:
-            if Player_Num == 0:
-                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch0_1.png')
-                CPlayer_Bullet.ImgX = 64
-                CPlayer_Bullet.ImgY = 128
-                CPlayer_Bullet.Att = 2
-            if Player_Num == 1:
-                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch1_1.png')
-                CPlayer_Bullet.ImgX = 96
-                CPlayer_Bullet.ImgY = 127
-                CPlayer_Bullet.Att = 4
-            if Player_Num == 2:
-                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch2_1.png')
-                CPlayer_Bullet.ImgX = 89
-                CPlayer_Bullet.ImgY = 89
-                CPlayer_Bullet.Att = 6
+    def Change_Bullet(self, Player_Num):
+        if Player_Num == 0:
+            CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch0_1.png')
+            CPlayer_Bullet.ImgX = 64
+            CPlayer_Bullet.ImgY = 128
+            CPlayer_Bullet.Att = 2
+        if Player_Num == 1:
+            CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch1_1.png')
+            CPlayer_Bullet.ImgX = 96
+            CPlayer_Bullet.ImgY = 127
+            CPlayer_Bullet.Att = 4
+        if Player_Num == 2:
+            CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch2_1.png')
+            CPlayer_Bullet.ImgX = 89
+            CPlayer_Bullet.ImgY = 89
+            CPlayer_Bullet.Att = 6
 
     def Update(self):
         self.y += CPlayer_Bullet.Speed;
