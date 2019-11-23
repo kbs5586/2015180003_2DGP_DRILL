@@ -56,7 +56,25 @@ class CMidBossBullet:
             pass
         elif self.Pattern == 2:
             self.Pattern2Time += game_framework.frame_time
-
+            if self.Pattern2Time <= 0.7:
+                if self.Cnt == 0:
+                    self.x -= 2.5
+                elif self.Cnt == 1:
+                    self.x -= 1.5
+                elif self.Cnt == 2:
+                    self.x -= 0.5
+                elif self.Cnt == 3:
+                    self.x -= 0.1
+                elif self.Cnt == 4:
+                    self.x += 0.1
+                elif self.Cnt == 5:
+                    self.x += 0.5
+                elif self.Cnt == 6:
+                    self.x += 1.5
+                elif self.Cnt == 7:
+                    self.x += 2.5
+            else:
+                self.y -= 1
             pass
         pass
 

@@ -26,13 +26,12 @@ class CMidBoss:
             self.y = 450
 
         self.time += game_framework.frame_time
-        if self.time < 10:
+        if self.time < 5:
+            self.Pattern0()
+        elif self.time <= 10:
             self.Pattern1()
         elif self.time <= 20:
-            self.Pattern1()
-        elif self.time <= 30:
             self.Pattern2()
-            self.time = 0.0
 
         for i in self.BulletLst:
             i.Update()
@@ -65,7 +64,7 @@ class CMidBoss:
     def Pattern2(self):
         self.BulletTime += game_framework.frame_time
         if self.BulletTime > 2.0:
-            for i in range(6):
+            for i in range(8):
                 MidBossBullet = Main_State.MidBossBullet.CMidBossBullet(self.x, self.y, 2, i)
                 self.BulletLst.append(MidBossBullet)
             self.BulletTime = 0.0
