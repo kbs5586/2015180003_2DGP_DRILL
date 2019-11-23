@@ -19,15 +19,44 @@ class CMidBossBullet:
         self.Speed = 0.0
         self.Pattern = Pattern
         self.Cnt = Cnt
+        self.Angle = 0.0
+        self.Pattern1Time = 0.0
+        self.Pattern2Time = 0.0
 
         pass
 
     def Update(self):
+
         if self.Pattern == 0:
+            if self.Cnt == 0:
+                self.x -= 2.5
+            elif self.Cnt == 1:
+                self.x -= 1.5
+            elif self.Cnt == 2:
+                self.x -= 0.5
+            elif self.Cnt == 3:
+                self.x += 0.5
+            elif self.Cnt == 4:
+                self.x += 1.5
+            elif self.Cnt == 5:
+                self.x += 2.5
+            self.y -= 1
+
             pass
         elif self.Pattern == 1:
+            self.Pattern1Time += game_framework.frame_time
+            if self.Cnt % 2 == 0:
+                self.x = self.x * math.cos(math.radians(self.Angle)) - self.y * math.sin(math.radians(self.Angle))
+                self.y = self.x * math.sin(math.radians(self.Angle)) + self.y * math.cos(math.radians(self.Angle))
+                self.Angle += 0.0001
+            else:
+                self.x = self.x * math.cos(math.radians(self.Angle)) - self.y * math.sin(math.radians(self.Angle))
+                self.y = self.x * math.sin(math.radians(self.Angle)) + self.y * math.cos(math.radians(self.Angle))
+                self.Angle -= 0.0001
             pass
         elif self.Pattern == 2:
+            self.Pattern2Time += game_framework.frame_time
+
             pass
         pass
 
