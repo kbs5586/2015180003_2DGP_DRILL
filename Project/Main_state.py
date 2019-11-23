@@ -25,6 +25,7 @@ def Create_Normal_Monster():
     global State_Lst
     global Normal_Monster_Time
     Normal_Monster_Lst = []
+    Normal_Monster_Time += game_framework.frame_time
     if Normal_Monster_Time > 5.0:
         for i in range(6):
             rnd = random.randint(0, 10)
@@ -35,19 +36,18 @@ def Create_Normal_Monster():
             Normal_Monster_Lst.append(Monster)
         State_Lst.append(Normal_Monster_Lst)
         Normal_Monster_Time = 0.0
-    Normal_Monster_Time += 0.01
 
 
 def Create_MidBoss():
     global State_Lst
     global Mid_Boss_Time
     Mid_Monster_Lst = []
-    if Mid_Boss_Time > 30.0:
+    Mid_Boss_Time += game_framework.frame_time
+    if Mid_Boss_Time > 1.0:
         MidBoss = Main_State.MidBoss.CMidBoss()
         Mid_Monster_Lst.append(MidBoss)
         State_Lst.append(Mid_Monster_Lst)
-        Mid_Boss_Time = 0.0
-    Mid_Boss_Time += 0.01
+        Mid_Boss_Time = -1000.0
     pass
 
 
@@ -92,7 +92,7 @@ def handle_events():
 
 
 def update():
-    Create_Normal_Monster()
+    #Create_Normal_Monster()
     Create_MidBoss()
     for i in State_Lst:
         for j in i:

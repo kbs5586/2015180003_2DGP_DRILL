@@ -18,6 +18,8 @@ class CNormal_Monster0:
         self.Monster_Bullet_Time = 0.0
         self.Speed = 1
         self.Type = "Monster"
+        self.BulletCnt=0
+
         pass
 
     def Update(self):

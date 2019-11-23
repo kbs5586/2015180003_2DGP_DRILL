@@ -33,6 +33,7 @@ class CPlayer:
     def Update(self):
         self.x = self.MouseX
         self.y = self.MouseY
+        self.Bullet_Time += game_framework.frame_time
         if self.BulletSpeed <= 0.2:
             self.BulletSpeed = 0.2
         if self.Bullet_Time > self.BulletSpeed:
@@ -45,7 +46,6 @@ class CPlayer:
                 Bullet = Main_State.Player_Bullet.CPlayer_Bullet(self.x, self.y, self.Player_Num)
                 self.Bullet_Lst.append(Bullet)
             self.Bullet_Time = 0
-        self.Bullet_Time += 0.01
 
         for i in self.Bullet_Lst:
             i.Update()
