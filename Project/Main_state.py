@@ -21,7 +21,7 @@ Player_Lst = []
 Normal_Monster_Time = 0.0
 Mid_Boss_Time = 0.0
 Meteor_Time = 0.0
-Meteor_Term =22.0
+Meteor_Term =7.0
 
 
 def Create_Meteor():
@@ -45,7 +45,7 @@ def Create_Normal_Monster():
     global Normal_Monster_Time
     Normal_Monster_Lst = []
     Normal_Monster_Time += game_framework.frame_time
-    if Normal_Monster_Time > 5.0:
+    if Normal_Monster_Time > 4.0:
         for i in range(6):
             rnd = random.randint(0, 10)
             if rnd <= 7:
@@ -62,7 +62,7 @@ def Create_MidBoss():
     global Mid_Boss_Time
     Mid_Monster_Lst = []
     Mid_Boss_Time += game_framework.frame_time
-    if Mid_Boss_Time > 30.0:
+    if Mid_Boss_Time > 10.0:
         MidBoss = Main_State.MidBoss.CMidBoss()
         Mid_Monster_Lst.append(MidBoss)
         State_Lst.append(Mid_Monster_Lst)

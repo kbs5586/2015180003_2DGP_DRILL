@@ -79,13 +79,13 @@ class CPlayer:
                     and self.x + self.ImgX / 2 > i.x - i.ImgX / 2 \
                     and self.y - self.ImgY / 2 < i.y + i.ImgY / 2:
                 if i.kind == 0:
-                    self.Bullet_Stack_Num += 1
+                    self.Bullet_Stack_Num += 2
                     pass
                 elif i.kind == 1:
-                    self.Bullet_Stack_Shape += 1
+                    self.Bullet_Stack_Shape += 2
                     pass
                 elif i.kind == 2:
-                    self.Bullet_Stack_Speed += 1
+                    self.Bullet_Stack_Speed += 2
                     if self.Bullet_Stack_Speed >= 2:
                         self.Bullet_Stack_Speed = 0
                         self.BulletSpeed -= 0.1
