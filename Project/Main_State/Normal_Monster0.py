@@ -18,7 +18,7 @@ class CNormal_Monster0:
         self.Monster_Bullet_Time = 0.0
         self.Speed = 1
         self.Type = "Monster"
-        self.BulletCnt=0
+        self.BulletCnt = 0
 
         pass
 
@@ -44,8 +44,7 @@ class CNormal_Monster0:
             Item = Main_State.Item.CItem(0, self.x, self.y)
         elif tmp == 1:
             Item = Main_State.Item.CItem(1, self.x, self.y)
-        else :
+        else:
             Item = Main_State.Item.CItem(2, self.x, self.y)
         Item_Lst.append(Item)
         Unit_Lst.append(Item_Lst)
-

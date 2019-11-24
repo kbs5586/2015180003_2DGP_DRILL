@@ -37,7 +37,6 @@ class CItem:
         self.Type = "Item"
         self.LifeTime = 5.0
 
-
     def Update(self):
         if self.x <= 0:
             self.DirX *= -1

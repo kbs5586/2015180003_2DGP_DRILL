@@ -11,6 +11,7 @@ import Main_State.Player
 import Main_State.Normal_Monster0
 import Main_State.Normal_Monster1
 import Main_State.MidBoss
+import Main_State.Meteor
 
 Back_Ground_Img = None
 
@@ -19,6 +20,24 @@ Player_Lst = []
 
 Normal_Monster_Time = 0.0
 Mid_Boss_Time = 0.0
+Meteor_Time = 0.0
+Meteor_Term =22.0
+
+
+def Create_Meteor():
+    global State_Lst
+    global Meteor_Time
+    global Meteor_Term
+    Meteor_Lst=[]
+    Meteor_Time += game_framework.frame_time
+
+    if Meteor_Time > Meteor_Term:
+        for i in range(6):
+            Meteor = Main_State.Meteor.CMeteor(int(random.randint(1, 7)))
+            Meteor_Lst.append(Meteor)
+        State_Lst.append(Meteor_Lst)
+        Meteor_Time = 0.0
+    pass
 
 
 def Create_Normal_Monster():
@@ -43,11 +62,11 @@ def Create_MidBoss():
     global Mid_Boss_Time
     Mid_Monster_Lst = []
     Mid_Boss_Time += game_framework.frame_time
-    if Mid_Boss_Time > 1.0:
+    if Mid_Boss_Time > 30.0:
         MidBoss = Main_State.MidBoss.CMidBoss()
         Mid_Monster_Lst.append(MidBoss)
         State_Lst.append(Mid_Monster_Lst)
-        Mid_Boss_Time = -1000.0
+        Mid_Boss_Time = -100000000.0
     pass
 
 
@@ -92,7 +111,8 @@ def handle_events():
 
 
 def update():
-    #Create_Normal_Monster()
+    Create_Normal_Monster()
+    Create_Meteor()
     Create_MidBoss()
     for i in State_Lst:
         for j in i:
@@ -129,6 +149,13 @@ def Delete():
                 for k in j.Bullet_Lst:
                     if k.y >= 600:
                         del j.Bullet_Lst[j.Bullet_Lst.index(k)]
+            if j.Type == "MidBoss":
+                for k in j.Bullet_Lst:
+                    if k.LifeTime >= 10.0:
+                        del j.Bullet_Lst[j.Bullet_Lst.index(k)]
+            if j.Type == "Meteor":
+                if j.y <= 0:
+                    del i[i.index(j)]
 
 
 def Collision():
@@ -146,6 +173,12 @@ def Collision():
                         for h in l:
                             if h.Type == "Monster":
                                 k.Collision(l)
+            #if j.Type == "Meteor":
+                #for k in State_Lst:
+                    #for l in k:
+                        #if l.Type == "Player":
+                            #j.Collision(k)
+                pass
         pass
 
     pass

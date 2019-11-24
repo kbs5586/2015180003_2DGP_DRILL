@@ -22,11 +22,12 @@ class CMidBossBullet:
         self.Angle = 0.0
         self.Pattern1Time = 0.0
         self.Pattern2Time = 0.0
-
+        self.Type = "MidBossBullet"
+        self.LifeTime = 0.0
         pass
 
     def Update(self):
-
+        self.LifeTime += game_framework.frame_time
         if self.Pattern == 0:
             if self.Cnt == 0:
                 self.x -= 2.5

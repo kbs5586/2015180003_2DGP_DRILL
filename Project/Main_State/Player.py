@@ -2,6 +2,7 @@ import game_framework
 import Select_state
 from pico2d import *
 import Main_State.Player_Bullet
+import Main_State.Baby_Dragon
 
 
 class CPlayer:
@@ -21,8 +22,10 @@ class CPlayer:
         self.Bullet_Time = 0.0
         self.Bullet_Lst = []
         self.Type = "Player"
-        self.BulletSpeed = 1.0
+        self.BulletSpeed = 0.1
         self.IsCheck_Bullet_Stack_Shape = False
+        self.Baby_Dragon0 = Main_State.Baby_Dragon.CBaby_Dragon(0)
+        self.Baby_Dragon1 = Main_State.Baby_Dragon.CBaby_Dragon(1)
         pass
 
     def Mouse_Move(self, x, y):
@@ -53,12 +56,20 @@ class CPlayer:
                 if self.Bullet_Stack_Shape >= 3:
                     i.Change_Bullet(self.Player_Num)
                     self.IsCheck_Bullet_Stack_Shape = True
+
+        self.Baby_Dragon0.Update()
+        self.Baby_Dragon0.Compute_Player_Pos(self)
+
+        self.Baby_Dragon1.Update()
+        self.Baby_Dragon1.Compute_Player_Pos(self)
         pass
 
     def Render(self):
         CPlayer.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
         for i in self.Bullet_Lst:
             i.Render()
+        self.Baby_Dragon0.Render()
+        self.Baby_Dragon1.Render()
         pass
 
     def Collision(self, Unit_Lst):
