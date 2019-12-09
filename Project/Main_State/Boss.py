@@ -21,15 +21,6 @@ class CBoss:
         self.IsLateInit = False
         pass
 
-    def Pattern0(self):
-        self.BulletTime += game_framework.frame_time
-        if self.BulletTime > 2.0:
-            for i in range(6):
-                MidBossBullet = Main_State.MidBossBullet.CMidBossBullet(self.x, self.y, 0, i)
-                self.Bullet_Lst.append(MidBossBullet)
-            self.BulletTime = 0.0
-        pass
-
     def Pattern1(self):
         self.BulletTime += game_framework.frame_time
         if self.BulletTime > 2.0:
@@ -47,6 +38,19 @@ class CBoss:
                 self.Bullet_Lst.append(MidBossBullet)
             self.BulletTime = 0.0
         pass
+
+    def Pattern0(self):
+        self.BulletTime += game_framework.frame_time
+        if self.BulletTime > 0.5:
+            for i in range(8):
+                MidBossBullet = Main_State.MidBossBullet.CMidBossBullet(self.x, self.y, 3, i, 0)
+                self.Bullet_Lst.append(MidBossBullet)
+                MidBossBullet = Main_State.MidBossBullet.CMidBossBullet(self.x, self.y, 3, i, 1)
+                self.Bullet_Lst.append(MidBossBullet)
+            self.BulletTime = 0.0
+        pass
+
+
 
     def Update(self):
         if not self.IsLateInit:

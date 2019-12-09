@@ -9,7 +9,7 @@ import Main_State.MidBossBullet
 class CMidBossBullet:
     Image = None
 
-    def __init__(self, PosX, PosY, Pattern, Cnt):
+    def __init__(self, PosX, PosY, Pattern, Cnt, Type=0):
         if CMidBossBullet.Image is None:
             CMidBossBullet.Image = load_image('Resource//MidBossBullet0.png');
         self.ImgX = 23
@@ -24,6 +24,8 @@ class CMidBossBullet:
         self.Pattern2Time = 0.0
         self.Type = "MidBossBullet"
         self.LifeTime = 0.0
+        self.Pattern3Val = -2.5
+        self.Type = Type
         pass
 
     def Update(self):
@@ -76,6 +78,19 @@ class CMidBossBullet:
                     self.x += 2.5
             else:
                 self.y -= 1
+            pass
+        elif self.Pattern == 3:
+            if self.Type == 0:
+                self.y -= 1
+                self.x += self.Pattern3Val
+            else:
+                self.y -= 1
+                self.x -= self.Pattern3Val
+            self.Pattern3Val += 0.01
+            pass
+        elif self.Pattern == 4:
+            pass
+        elif self.Pattern == 5:
             pass
         pass
 
