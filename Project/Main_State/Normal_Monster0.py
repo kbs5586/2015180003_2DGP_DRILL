@@ -11,7 +11,7 @@ class CNormal_Monster0:
     def __init__(self, xPos=1):
         if CNormal_Monster0.Image is None:
             CNormal_Monster0.Image = load_image('Resource//Monster0.png')
-        self.Hp = 1
+        self.Hp = 500
         self.x, self.y = xPos * 100, 600
         self.ImgX, self.ImgY = 116, 120
         self.Bullet_Lst = []

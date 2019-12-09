@@ -1,5 +1,6 @@
 import game_framework
 import random
+import Main_state
 from pico2d import *
 
 
@@ -18,6 +19,8 @@ class CMeteor:
         pass
 
     def Update(self):
+        if Main_state.IsStage1_End:
+            self.Speed=3
         self.y -= self.Speed
         pass
 

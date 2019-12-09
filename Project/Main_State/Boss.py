@@ -7,42 +7,18 @@ import game_framework
 from pico2d import *
 
 
-class CMidBoss:
+class CBoss:
     def __init__(self):
-        self.Image = load_image('Resource//Boss0.png')
-        self.Hp = 50000
+        self.Image = load_image('Resource//Boss1.png')
+        self.Hp = 75000
         self.x, self.y = 400, 600
-        self.ImgX, self.ImgY = 300, 300
+        self.ImgX, self.ImgY = 410, 380
         self.Speed = 1
-        self.Type = 'MidBoss'
+        self.Type = 'Boss'
         self.time = 0.0
         self.Bullet_Lst = []
         self.BulletTime = 0.0
-        pass
-
-    def Update(self):
-        self.y -= self.Speed
-        if self.y <= 450:
-            self.y = 450
-
-        self.time += game_framework.frame_time
-        if self.time < 10:
-            self.Pattern0()
-        elif self.time <= 20:
-            self.Pattern1()
-        else:
-            self.Pattern2()
-        if self.time >= 50:
-            self.time = 0.0
-
-        for i in self.Bullet_Lst:
-            i.Update()
-        pass
-
-    def Render(self):
-        self.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
-        for i in self.Bullet_Lst:
-            i.Render()
+        self.IsLateInit = False
         pass
 
     def Pattern0(self):
@@ -70,6 +46,34 @@ class CMidBoss:
                 MidBossBullet = Main_State.MidBossBullet.CMidBossBullet(self.x, self.y, 2, i)
                 self.Bullet_Lst.append(MidBossBullet)
             self.BulletTime = 0.0
+        pass
+
+    def Update(self):
+        if not self.IsLateInit:
+            self.y -= self.Speed
+            if self.y <= 450:
+                self.y = 450
+                self.IsLateInit = True
+
+        self.time += game_framework.frame_time
+        if self.time < 10:
+            self.Pattern0()
+        elif self.time <= 20:
+            self.Pattern1()
+        elif self.time <= 30:
+            self.Pattern2()
+
+        for i in self.Bullet_Lst:
+            i.Update()
+        pass
+
+    def Render(self):
+        self.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
+        for i in self.Bullet_Lst:
+            i.Render()
+        pass
+
+    def Collision(self):
         pass
 
     def Drop(self, Unit_Lst):

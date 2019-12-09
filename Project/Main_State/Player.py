@@ -26,6 +26,8 @@ class CPlayer:
         self.IsCheck_Bullet_Stack_Shape = False
         self.Baby_Dragon0 = Main_State.Baby_Dragon.CBaby_Dragon(0)
         self.Baby_Dragon1 = Main_State.Baby_Dragon.CBaby_Dragon(1)
+        self.font = load_font('ENCR10B.TTF', 50)
+        self.Game_time = 0.0
         pass
 
     def Mouse_Move(self, x, y):
@@ -37,6 +39,7 @@ class CPlayer:
         self.x = self.MouseX
         self.y = self.MouseY
         self.Bullet_Time += game_framework.frame_time
+        self.Game_time += game_framework.frame_time
         if self.BulletSpeed <= 0.2:
             self.BulletSpeed = 0.2
         if self.Bullet_Time > self.BulletSpeed:
@@ -68,6 +71,7 @@ class CPlayer:
         CPlayer.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
         for i in self.Bullet_Lst:
             i.Render()
+        self.font.draw(700,300, '%d' % self.Game_time, (255, 255, 255))
         self.Baby_Dragon0.Render()
         self.Baby_Dragon1.Render()
         pass
@@ -88,7 +92,7 @@ class CPlayer:
                     self.Bullet_Stack_Speed += 2
                     if self.Bullet_Stack_Speed >= 2:
                         self.Bullet_Stack_Speed = 0
-                        self.BulletSpeed -= 0.1
+                        self.BulletSpeed -= 0.3
                 del Unit_Lst[Unit_Lst.index(i)]
                 pass
         pass

@@ -67,6 +67,9 @@ class CPlayer_Bullet:
                 i.Hp -= CPlayer_Bullet.Att
                 if i.Hp <= 0:
                     j = random.randint(0, 10)
+                    if i.Type == "MidBoss":
+                        Main_state.IsStage1_End =True
+                        pass
                     if j <= 4:
                         i.Drop(Main_state.State_Lst)
                     del Unit_Lst[Unit_Lst.index(i)]
