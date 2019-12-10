@@ -19,6 +19,8 @@ class CBoss:
         self.Bullet_Lst = []
         self.BulletTime = 0.0
         self.IsLateInit = False
+        self.Sound = load_wav('Sound//Death.wav')
+        self.Sound.set_volume(3)
         pass
 
     def Pattern1(self):

@@ -19,7 +19,8 @@ class CNormal_Monster0:
         self.Speed = 1
         self.Type = "Monster"
         self.BulletCnt = 0
-
+        self.Sound = load_wav('Sound//Death.wav')
+        self.Sound.set_volume(3)
         pass
 
     def Update(self):
@@ -29,6 +30,7 @@ class CNormal_Monster0:
             self.Monster_Bullet_Time = 0.0
         self.Monster_Bullet_Time += 0.01
 
+
         pass
 
     def Render(self):
@@ -37,7 +39,6 @@ class CNormal_Monster0:
 
     def Drop(self, Unit_Lst):
         Item_Lst = []
-
         tmp = random.randint(0, 2)
         print(tmp)
         if tmp == 0:

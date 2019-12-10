@@ -27,6 +27,7 @@ class CPlayer:
         self.Baby_Dragon0 = Main_State.Baby_Dragon.CBaby_Dragon(0)
         self.Baby_Dragon1 = Main_State.Baby_Dragon.CBaby_Dragon(1)
         self.font = load_font('ENCR10B.TTF', 50)
+
         self.Game_time = 0.0
         pass
 
@@ -71,9 +72,14 @@ class CPlayer:
         CPlayer.Image.clip_draw(0, 0, self.ImgX, self.ImgY, self.x, self.y)
         for i in self.Bullet_Lst:
             i.Render()
-        self.font.draw(700,300, '%d' % self.Game_time, (255, 255, 255))
+        self.font.draw(700, 300, '%d' % self.Game_time, (255, 255, 255))
         self.Baby_Dragon0.Render()
         self.Baby_Dragon1.Render()
+        pass
+
+    def Change_Player(self, num):
+        self.Player_Num=num
+
         pass
 
     def Collision(self, Unit_Lst):

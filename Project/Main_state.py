@@ -30,7 +30,9 @@ Meteor_Term = 7.0
 
 IsStage1_End = False
 
-Game_Time =0.0
+Game_Time = 0.0
+BgmSound = 0
+
 
 def Create_Meteor():
     global State_Lst
@@ -115,7 +117,6 @@ def enter():
     global Back_Ground_Img
     global Player_Lst
     global State_Lst
-
     Back_Ground_Img = load_image('Resource//BackGround.png')
     player = Main_State.Player.CPlayer(Select_state.CharNum)
     Player_Lst.append(player)
@@ -138,12 +139,29 @@ def resume():
 
 def handle_events():
     global Player_Lst
+    global State_Lst
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+            for i in State_Lst:
+                for j in i:
+                    if j.Type == 'Player':
+                        j.Change_Player(0)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
+            for i in State_Lst:
+                for j in i:
+                    if j.Type == 'Player':
+                        j.Change_Player(1)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+            for i in State_Lst:
+                for j in i:
+                    if j.Type == 'Player':
+                        j.Change_Player(2)
+            pass
         elif event.type == SDL_MOUSEMOTION:
             x, y = event.x, 600 - 1 - event.y
             for i in Player_Lst:
@@ -154,7 +172,7 @@ def handle_events():
 
 def update():
     global IsStage1_End
-
+    global BgmSound
     if not IsStage1_End:
         Create_Normal_Monster()
     else:
@@ -163,6 +181,7 @@ def update():
     Create_MidBoss()
     Create_Boss()
 
+    #BgmSound.play()
     for i in State_Lst:
         for j in i:
             j.Update()

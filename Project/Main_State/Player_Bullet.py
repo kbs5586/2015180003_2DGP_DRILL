@@ -13,24 +13,51 @@ class CPlayer_Bullet:
     Att = None
 
     def __init__(self, PosX, PosY, Player_Num):
+        self.PreNum =Player_Num
+        self. PlayerNum=0
         if CPlayer_Bullet.Image is None:
             if Player_Num == 0:
                 CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch0_0.png')
                 CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 64, 64
                 CPlayer_Bullet.Speed = 3
                 CPlayer_Bullet.Att = 1
+                self.PlayerNum = Player_Num
             if Player_Num == 1:
                 CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch1_0.png')
                 CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 128, 128
                 CPlayer_Bullet.Speed = 2
                 CPlayer_Bullet.Att = 2
+                self.PlayerNum = Player_Num
             if Player_Num == 2:
                 CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch2_0.png')
                 CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 128, 128
                 CPlayer_Bullet.Speed = 1
                 CPlayer_Bullet.Att = 3
-        self.x, self.y = PosX, PosY + 30
+                self.PlayerNum = Player_Num
 
+        if self.PreNum != self.PlayerNum:
+            if self.PreNum == 0:
+                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch0_0.png')
+                CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 64, 64
+                CPlayer_Bullet.Speed = 3
+                CPlayer_Bullet.Att = 1
+                self.PlayerNum = Player_Num
+            if self.PreNum == 1:
+                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch1_0.png')
+                CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 128, 128
+                CPlayer_Bullet.Speed = 2
+                CPlayer_Bullet.Att = 2
+                self.PlayerNum = Player_Num
+            if self.PreNum == 2:
+                CPlayer_Bullet.Image = load_image('Resource//Bullet_Ch2_0.png')
+                CPlayer_Bullet.ImgX, CPlayer_Bullet.ImgY = 128, 128
+                CPlayer_Bullet.Speed = 1
+                CPlayer_Bullet.Att = 3
+                self.PlayerNum = Player_Num
+
+        self.x, self.y = PosX, PosY + 30
+        self.BulletSound=load_wav('Sound//PlayerAtt.wav')
+        self.BulletSound.set_volume(1)
         pass
 
     def Change_Bullet(self, Player_Num):
@@ -52,6 +79,7 @@ class CPlayer_Bullet:
 
     def Update(self):
         self.y += CPlayer_Bullet.Speed;
+        self.BulletSound.play()
         pass
 
     def Render(self):
@@ -64,8 +92,10 @@ class CPlayer_Bullet:
                     and self.y + CPlayer_Bullet.ImgY / 2 > i.y - i.ImgY / 2 \
                     and self.x + CPlayer_Bullet.ImgX / 2 > i.x - i.ImgX / 2 \
                     and self.y - CPlayer_Bullet.ImgY / 2 < i.y + i.ImgY / 2:
+                i.Sound.play()
                 i.Hp -= CPlayer_Bullet.Att
                 if i.Hp <= 0:
+
                     j = random.randint(0, 10)
                     if i.Type == "MidBoss":
                         Main_state.IsStage1_End =True

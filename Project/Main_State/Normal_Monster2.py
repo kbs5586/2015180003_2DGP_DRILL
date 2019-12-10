@@ -18,6 +18,8 @@ class CNormal_Monster2:
         self.Monster_Bullet_Time = 0.0
         self.Speed = 2
         self.Type = "Monster"
+        self.Sound = load_wav('Sound//Death.wav')
+        self.Sound.set_volume(3)
 
     def Update(self):
         self.y -= self.Speed
