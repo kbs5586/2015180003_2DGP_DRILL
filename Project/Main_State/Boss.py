@@ -10,7 +10,7 @@ from pico2d import *
 class CBoss:
     def __init__(self):
         self.Image = load_image('Resource//Boss1.png')
-        self.Hp = 75000
+        self.Hp = 55000
         self.x, self.y = 400, 600
         self.ImgX, self.ImgY = 410, 380
         self.Speed = 1

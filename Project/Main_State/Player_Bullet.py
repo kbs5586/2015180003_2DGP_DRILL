@@ -100,6 +100,8 @@ class CPlayer_Bullet:
                     if i.Type == "MidBoss":
                         Main_state.IsStage1_End =True
                         pass
+                    if i.Type == "Boss":
+                        Main_state.IsStage2_End = True
                     if j <= 4:
                         i.Drop(Main_state.State_Lst)
                     del Unit_Lst[Unit_Lst.index(i)]

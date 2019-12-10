@@ -73,6 +73,7 @@ class CPlayer:
         for i in self.Bullet_Lst:
             i.Render()
         self.font.draw(700, 300, '%d' % self.Game_time, (255, 255, 255))
+
         self.Baby_Dragon0.Render()
         self.Baby_Dragon1.Render()
         pass

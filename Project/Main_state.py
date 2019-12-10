@@ -29,9 +29,11 @@ Meteor_Time = 0.0
 Meteor_Term = 7.0
 
 IsStage1_End = False
+IsStage2_End = False
 
 Game_Time = 0.0
-BgmSound = 0
+MainFont = 0
+Score = 0.0
 
 
 def Create_Meteor():
@@ -117,6 +119,9 @@ def enter():
     global Back_Ground_Img
     global Player_Lst
     global State_Lst
+    global MainFont
+    MainFont = load_font('ENCR10B.TTF', 50)
+
     Back_Ground_Img = load_image('Resource//BackGround.png')
     player = Main_State.Player.CPlayer(Select_state.CharNum)
     Player_Lst.append(player)
@@ -181,7 +186,6 @@ def update():
     Create_MidBoss()
     Create_Boss()
 
-    #BgmSound.play()
     for i in State_Lst:
         for j in i:
             j.Update()
@@ -194,13 +198,21 @@ def update():
 def draw():
     global Back_Ground_Img
     global State_Lst
+    global IsStage2_End
+    global MainFont
+    global Score
 
+    if not IsStage2_End:
+        Score += game_framework.frame_time
     clear_canvas()
     Back_Ground_Img.draw(400, 300)
 
     for i in State_Lst:
         for j in i:
             j.Render()
+
+    if IsStage2_End:
+        MainFont.draw(200, 300, 'Game_Over: %d' % Score, (255, 255, 255))
 
     update_canvas()
 
